@@ -45,8 +45,23 @@
         </ul>
     </header>
 
-    {% block shit %}
-    {% endblock %}
+    <section>
+        <!-- flash messages displayed here -->
+        {% with messages = get_flashed_messages() %} 
+            {% if messages %} <!-- If there are messages -->
+                {% for message in messages %} <!-- For each message in messages -->
+                    <div class="row flashes">
+                        <h4 class="teal lighten-2 center-align">{{ message }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </section>
+
+    <main class="container">
+        {% block shit %}
+        {% endblock %}
+    </main>
     <!-- JQuery CDN Link, load before Materialize -->
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
