@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block shit %}
 
-    <h3 class="center-align">Register</h3>
+    <h3 class="center-align">Log In</h3>
 
     <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register')}}">
+        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login')}}">
             <div class="card-panel">
                 <!-- Username -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-lighten-2">add_circle</i>
+                        <i class="material-icons prefix teal-text text-lighten-2">account_circle</i>
                         <input id="username" name="username" type="text" minlength="5" maxlength="15" 
                         pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
                         <label for="username">Username</label>
@@ -24,21 +24,21 @@
                         <label for="password">Password</label>
                     </div>
                 </div>
-                <!-- Registration button -->
+                <!-- Login button -->
                 <div class="row">
                     <button type="submit" class="col s12 btn-large teal lighten-2">
-                        Register <i class="material-icons prefix white-text">how_to_reg</i>
+                        Log In <i class="material-icons prefix white-text">login</i>
                     </button>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- If already a user, navigate to the log in page -->
+    <!-- If not already a user, navigate to the register page -->
     <div class="row">
         <div class="col s12">
             <p class="center-align">
-                Already registered? <a href="{{ url_for('login') }}" class="teal-text">Login now</a>
+                New here? <a href="{{ url_for('register') }}" class="teal-text">Register a new account</a>
             </p>
         </div>
     </div>
