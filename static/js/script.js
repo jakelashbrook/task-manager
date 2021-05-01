@@ -18,6 +18,9 @@ $(document).ready(function(){
     function validateMaterializeSelect() {
         let classValid = { "border-bottom": "1px solid #4caf50", "box-shadow": "0 1px 0 0 #4caf50" };
         let classInvalid = { "border-bottom": "1px solid #f44336", "box-shadow": "0 1px 0 0 #f44336" };
+        /* IF ANY <select> elements have the property of hidden, we need to unhide it but make sure that 
+        it's virtually invisible without any width or height. Materialize hides the select elements, 
+        but we need them to be physically present on the DOM. */
         if ($("select.validate").prop("required")) {
             $("select.validate").css({ "display": "block", "height": "0", "padding": "0", "width": "0", "position": "absolute" });
         }
