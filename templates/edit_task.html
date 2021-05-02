@@ -10,9 +10,14 @@
                 <div class="input-field col s12">
                      <i class="material-icons prefix teal-text text-darken-2">topic</i>
                     <select id="category_name" name="category_name" class="validate" required>
-                        <option value="" disabled selected>Choose Category</option>
+                        <option value="" disabled>Choose Category</option>
                         {% for category in categories %}
+                            {% if category.category_name == task.category_name %}
+                            <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            <!-- Preselects the category of task ready for editing-->
+                            {% else %}
                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label for="category_name">Task Category</label>
@@ -23,7 +28,7 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix teal-text text-darken-2">create</i>
                     <input id="task_name" name="task_name" minlength="5" maxlength="50" 
-                    type="text" class="validate" required>
+                    value="{{ task.task_name }}" type="text" class="validate" required>
                     <label for="task_name">Task Name</label>
                 </div>
             </div>
@@ -32,7 +37,11 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix teal-text text-darken-2">format_align_left</i>
                     <textarea id="task_description" name="task_description" minlengeth="5"
-                    maxlength="200" class="materialize-textarea validate" required></textarea>
+                    maxlength="200" class="materialize-textarea validate" required>
+                        {{- task.task_description -}} 
+                    </textarea>
+                    <!-- The minus (-) symbol in the Jinja syntax removes whitespace-->
+                    <!-- If you wanted to include whitespace, use the plus (+) symbol-->
                     <label for="task_description">Task Description</label>
                 </div>
             </div>
@@ -40,7 +49,8 @@
              <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix teal-text text-darken-2">event_note</i>
-                     <input type="text" id="due_date" name="due_date" class="datepicker validate" required>
+                     <input type="text" id="due_date" name="due_date" 
+                     value="{{ task.due_date }}" class="datepicker validate" required>
                     <label for="due_date">Due Date</label>
                 </div>
             </div>
@@ -50,7 +60,12 @@
                     <div class="switch">
                         <i class="material-icons prefix teal-text text-darken-2">priority_high</i>
                         <label for="is_urgent">
+                        {% if task.is_urgent == "on" %}
+                            <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+                        {% else %}
                             <input id="is_urgent" name="is_urgent" type="checkbox">
+                            <!-- The id error is fine because onlu one input will be rendered to the page -->
+                        {% endif %}
                             <span class="lever"></span>
                             Is Urgent
                         </label>
@@ -60,7 +75,12 @@
             <!-- Submit the task to the database -->
             <div class="row">
                 <div class="col s12 center-align">
-                    <button class="btn-large teal lighten-2" type="submit" >Edit Task
+                    <!-- Cancel Editing Task -->
+                    <a href="{{ url_for('get_tasks') }}" class="btn-large teal lighten-2 text-shadow" type="submit">Cancel
+                        <i class="material-icons right">cancel</i>
+                    </a>
+                    <!-- Submit Edited Task-->
+                    <button class="btn-large teal lighten-2 text-shadow" type="submit" >Edit Task
                         <i class="material-icons right">edit</i>
                     </button>
 
